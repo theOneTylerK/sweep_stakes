@@ -23,11 +23,11 @@ namespace sweepstakes
             {
                 case "1":
                 case "one":
-                    stackManager.GetSweepstakes();
+                    stackManager.InsertSweepstakes();
                     break;
                 case "2":
                 case "two":
-                    queueManager.GetSweepstakes();
+                    queueManager.InsertSweepstakes();
                     break;
                 default:
                     ChooseManagementStyle();
