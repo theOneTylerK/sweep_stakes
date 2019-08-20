@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace sweepstakes
 {
-    //interface ISweepstakesManager
-    //{
+    interface ISweepstakesManager
+    {
 
-    //    public void InsertSweepstakes(Sweepstakes sweepstakes)
-    //    {
+        public void InsertSweepstakes(Sweepstakes sweepstakes)
+        {
+            
+        }
 
-    //    }
+        public Sweepstakes GetSweepstakesManager()
+        {
 
-    //    public Sweepstakes GetSweepstakesManager()
-    //    {
-
-    //    }
-        
-
+        }
 
 
 
-    //}
+
+
+    }
 }
