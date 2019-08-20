@@ -43,5 +43,17 @@ namespace sweepstakes
             }
             return result;
         }
+
+        public static int GetRandom(int min, int max)
+        {
+            Random rng = new Random();
+            int winningNumber = rng.Next(min, max);
+            return winningNumber;
+        }
+
+        public static void DisplayContesttantInfo(Contestant contestant, Dictionary<int, string> dictionary)
+        {
+
+        }
     }
 }
