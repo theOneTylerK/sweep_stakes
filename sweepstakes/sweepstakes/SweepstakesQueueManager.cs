@@ -15,11 +15,20 @@ namespace sweepstakes
 
         }
 
-        public Queue<Sweepstakes> InsertSweepstakes()
+        public Sweepstakes GetSweepstakes()
         {
-           Sweepstakes newSweepstakes = new Sweepstakes(UserInterface.GetUserStringInput("Enter the name of the new Sweepstakes"));
-           sweepstakesQueue.Enqueue(newSweepstakes);
-           return sweepstakesQueue;
+            return sweepstakesQueue.Dequeue();
+            
+        }
+
+        public void InsertSweepstakes(Sweepstakes sweepstakes)
+        {
+           sweepstakesQueue.Enqueue(sweepstakes);
+        }
+
+        public void getUsed()
+        {
+            Console.WriteLine("Onward to the Queue manager");
         }
     }
 }

@@ -6,32 +6,19 @@ using System.Threading.Tasks;
 
 namespace sweepstakes
 {
-    class SweepstakesManagementFactory
+    public class SweepstakesManagementFactory 
     {
-        string userInput;
-        SweepstakesStackManager stackManager = new SweepstakesStackManager();
-        SweepstakesQueueManager queueManager = new SweepstakesQueueManager();
-        public SweepstakesManagementFactory()
+        public ISweepstakesManager ChooseManagementStyle()
         {
-            
-        }
-        
-        public void ChooseManagementStyle()
-        {
-            userInput = UserInterface.GetUserStringInput("To create a sweepstakes using a Stack enter '1' \n To create a sweepstakes using a Queue enter '2'");
+            string userInput = UserInterface.GetUserStringInput("To create a sweepstakes using a Stack enter '1' \n To create a sweepstakes using a Queue enter '2'");
             switch (userInput)
             {
                 case "1":
-                case "one":
-                    stackManager.InsertSweepstakes();
-                    break;
+                    return new SweepstakesStackManager();
                 case "2":
-                case "two":
-                    queueManager.InsertSweepstakes();
-                    break;
+                    return new SweepstakesQueueManager(); ;
                 default:
-                    ChooseManagementStyle();
-                    break;
+                    return ChooseManagementStyle();
             }
         }
 

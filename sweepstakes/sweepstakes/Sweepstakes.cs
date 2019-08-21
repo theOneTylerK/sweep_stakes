@@ -6,19 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 namespace sweepstakes
 {
-    class Sweepstakes
+    public class Sweepstakes
     {
         Dictionary<int, Contestant> contestantDictionary;
+        
         string name;
+        
 
         public Sweepstakes(string name)
         {
 
             this.name = name;
-
+            this.contestantDictionary = new Dictionary<int, Contestant>();
         }
 
-        private void RegisterContestant(Contestant contestant)
+        public void RegisterContestant(Contestant contestant)
         {
             contestant.registrationNumber = contestantDictionary.Count + 1;
             int TicketNumber = contestant.registrationNumber;
@@ -29,14 +31,16 @@ namespace sweepstakes
 
         }
 
-        private string PickWinner()
+        public string PickWinner()
         {
             int WinningSpot = UserInterface.GetRandom(1, contestantDictionary.Count + 1);
-            string Winner = $"The Winner is {contestantDictionary[WinningSpot].firstName } {contestantDictionary[WinningSpot].lastName}";
+            string Winner = $"The Winner of {name} is {contestantDictionary[WinningSpot].firstName } {contestantDictionary[WinningSpot].lastName}";
+            Console.WriteLine($"{Winner}");
+            Console.ReadLine();
             return Winner;
         }
 
-        private void PrintContestantInfo(Contestant contestant)
+        public void PrintContestantInfo(Contestant contestant)
         {
           Console.WriteLine($"{contestant.firstName} \n {contestant.lastName} \n {contestant.emailAddress} \n {contestant.registrationNumber}");  
         }

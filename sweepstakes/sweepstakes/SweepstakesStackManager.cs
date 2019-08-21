@@ -15,15 +15,20 @@ namespace sweepstakes
 
         }
 
-        public void InsertSweepstakes(Sweepstakes newSweepstakes)
+        public void InsertSweepstakes(Sweepstakes sweepstakes)
         {
-            sweepstakesStack.Push(newSweepstakes);
+            sweepstakesStack.Push(sweepstakes);
         }
 
         public Sweepstakes GetSweepstakes()
         {            
             Sweepstakes recoveredSweepstakes = sweepstakesStack.Pop();
             return recoveredSweepstakes;
+        }
+
+        public void getUsed()
+        {
+            Console.WriteLine("Onward to the Stack Manager");
         }
     }
     

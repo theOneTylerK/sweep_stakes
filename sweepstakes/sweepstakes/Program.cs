@@ -10,9 +10,13 @@ namespace sweepstakes
     {
         static void Main(string[] args)
         {
-            Contestant contestant = new Contestant();
-            //contestant.firstName = UserInterface.GetUserStringInput($"Please Enter Your First Name");
-            contestant.registrationNumber = UserInterface.GetUserIntInput("Please enter your registration number");
+            SweepstakesManagementFactory SMF = new SweepstakesManagementFactory();
+            MarketingFirm mf = new MarketingFirm(SMF.ChooseManagementStyle());
+
+            mf.CreateSweepstakes();
+            mf.FinishSweepstakes();
+
+
         }
     }
 }
