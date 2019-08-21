@@ -31,20 +31,36 @@ namespace sweepstakes
 
         }
 
-        public string PickWinner()
+        public Contestant PickWinner()
         {
             int WinningSpot = UserInterface.GetRandom(1, contestantDictionary.Count + 1);
-            string Winner = $"The Winner of {name} is {contestantDictionary[WinningSpot].firstName } {contestantDictionary[WinningSpot].lastName}";
-            Console.WriteLine($"{Winner}");
+            Console.WriteLine($"The Winner of {name} is {contestantDictionary[WinningSpot].firstName} {contestantDictionary[WinningSpot].lastName}");
             Console.ReadLine();
-            return Winner;
+           Contestant WinningContestant = contestantDictionary[WinningSpot];
+
+            return WinningContestant;
+        }
+
+        public void NotifyContestants()
+        {
+            Contestant Winner = PickWinner();
+            for (int i = 1; i < contestantDictionary.Count; i++)
+            {
+                if (contestantDictionary[i].registrationNumber == Winner.registrationNumber)
+                {
+                    Console.WriteLine($"Congratulations {contestantDictionary[i].firstName} {contestantDictionary[i].lastName}\n You have won the {name} Sweepstakes!");
+                }
+                else
+                {
+                    Console.WriteLine($"{contestantDictionary[i].firstName} {contestantDictionary[i].lastName},\n Thank you for entering the {name} Sweepstakes. Unfortunately, someone else was chosen as the winner. Try again next time.");
+                }
+            }
+
         }
 
         public void PrintContestantInfo(Contestant contestant)
         {
           Console.WriteLine($"{contestant.firstName} \n {contestant.lastName} \n {contestant.emailAddress} \n {contestant.registrationNumber}");  
         }
-
-       
     }
 }

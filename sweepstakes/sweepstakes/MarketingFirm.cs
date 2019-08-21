@@ -35,17 +35,16 @@ namespace sweepstakes
                 managementChoice.InsertSweepstakes(sweepstakes);
             }
         }
-        
+
         public void FinishSweepstakes()
         {
 
             for (int i = 0; i < numberOfSweepstakes; i++)
             {
                 Sweepstakes sweepstakes = managementChoice.GetSweepstakes();
-                sweepstakes.PickWinner();
+                sweepstakes.NotifyContestants();
             }
-            
-            
+
         }
 
     }
