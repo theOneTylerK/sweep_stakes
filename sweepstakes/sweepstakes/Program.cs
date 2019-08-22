@@ -15,8 +15,6 @@ namespace sweepstakes
 
             mf.CreateSweepstakes();
             mf.FinishSweepstakes();
-
-
         }
     }
 }

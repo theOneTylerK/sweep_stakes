@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using MailKit.Net.Smtp;
+//using MailKit;
+//using MimeKit;
+using System.Net;
+using System.Net.Mail;
 namespace sweepstakes
 {
     public class Sweepstakes
@@ -43,24 +48,94 @@ namespace sweepstakes
 
         public void NotifyContestants()
         {
+            
+            
             Contestant Winner = PickWinner();
-            for (int i = 1; i < contestantDictionary.Count; i++)
+            for (int i = 1; i < contestantDictionary.Count + 1; i++)
             {
                 if (contestantDictionary[i].registrationNumber == Winner.registrationNumber)
                 {
-                    Console.WriteLine($"Congratulations {contestantDictionary[i].firstName} {contestantDictionary[i].lastName}\n You have won the {name} Sweepstakes!");
+
+                    sendWinnerEmail(Winner.firstName, Winner.lastName, Winner.emailAddress);
+                    Console.WriteLine($"Congrats {Winner.firstName} {Winner.lastName}. You Won!");
+                    Console.ReadLine();
+                    
                 }
                 else
                 {
-                    Console.WriteLine($"{contestantDictionary[i].firstName} {contestantDictionary[i].lastName},\n Thank you for entering the {name} Sweepstakes. Unfortunately, someone else was chosen as the winner. Try again next time.");
+
+                    sendLoserEmail(contestantDictionary[i].firstName, contestantDictionary[i].lastName, contestantDictionary[i].emailAddress);
+                    Console.WriteLine($"Sorry {contestantDictionary[i].firstName} {contestantDictionary[i].lastName}. You didn't win.");
+                    Console.ReadLine();
                 }
             }
 
+        }
+
+        public void sendWinnerEmail(string firstName, string lastName, string emailAddress)
+        {
+            var fromAddress = new MailAddress("test.sweepstakesannouncer@gmail.com", "Sweepstakes Announcer");
+            var toAddress = new MailAddress($"{emailAddress}", $"{firstName} {lastName}");
+            string password = "TacoCat24$$";
+            string subject = $"{name} Sweepstakes Update";
+            string body = "";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("test.sweepstakesannouncer", password)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress))
+            {
+                string Subject = subject;
+                body = $"Congratulations {firstName}! You won the {name} sweepstakes!\n --Sweepstakes Announcer";
+            }
+            {
+                smtp.Send(fromAddress.Address, toAddress.Address, subject, body);
+            }
+        }
+
+
+        public void sendLoserEmail(string firstName, string lastName, string emailAddress)
+        {
+            {
+                var fromAddress = new MailAddress("test.sweepstakesannouncer@gmail.com", "Sweepstakes Announcer");
+                var toAddress = new MailAddress($"{emailAddress}", $"{firstName} {lastName}");
+                string password = "TacoCat24$$";
+                string subject = $"{name} Sweepstakes Update";
+                string body = "";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("test.sweepstakesannouncer", password)
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress))
+                {
+                    string Subject = subject;
+                    body = $"Hello {firstName}! We regret to inform you that you did not win the {name} sweepstakes! Please try again. \n --Sweepstakes Announcer";
+                }
+                {
+                    smtp.Send(fromAddress.Address, toAddress.Address, subject, body);
+                }
+            }
         }
 
         public void PrintContestantInfo(Contestant contestant)
         {
           Console.WriteLine($"{contestant.firstName} \n {contestant.lastName} \n {contestant.emailAddress} \n {contestant.registrationNumber}");  
         }
+
+
     }
 }
